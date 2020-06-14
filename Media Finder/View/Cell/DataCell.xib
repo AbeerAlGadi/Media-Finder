@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="15705" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15706"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <customFonts key="customFonts">
+        <array key="HelveticaNeue.ttc">
+            <string>HelveticaNeue-Bold</string>
+        </array>
+    </customFonts>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <tableViewCell contentMode="scaleToFill" restorationIdentifier="DataCell" selectionStyle="default" indentationWidth="10" rowHeight="80" id="KGk-i7-Jjw" customClass="DataCell" customModule="Media_Finder" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="450" height="80"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
+                <rect key="frame" x="0.0" y="0.0" width="450" height="80"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <imageView clipsSubviews="YES" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="envelope.circle" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="30e-z9-piT">
+                        <rect key="frame" x="7" y="15.5" width="66" height="47"/>
+                        <color key="tintColor" red="0.93725490199999995" green="0.3411764706" blue="0.074509803920000006" alpha="1" colorSpace="calibratedRGB"/>
+                    </imageView>
+                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="FHK-gY-Gn1">
+                        <rect key="frame" x="0.0" y="75" width="450" height="5"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                    </view>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="User Name" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="kd1-q6-ats">
+                        <rect key="frame" x="80" y="19" width="312" height="40"/>
+                        <fontDescription key="fontDescription" name="HelveticaNeue-Bold" family="Helvetica Neue" pointSize="14"/>
+                        <color key="textColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                </subviews>
+                <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                <constraints>
+                    <constraint firstAttribute="bottom" secondItem="kd1-q6-ats" secondAttribute="bottom" constant="21" id="AMQ-kJ-mAV"/>
+                    <constraint firstItem="kd1-q6-ats" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="19" id="LLV-0j-6Oq"/>
+                    <constraint firstItem="FHK-gY-Gn1" firstAttribute="top" secondItem="kd1-q6-ats" secondAttribute="bottom" constant="16" id="VQc-af-jhb"/>
+                    <constraint firstAttribute="bottom" secondItem="FHK-gY-Gn1" secondAttribute="bottom" id="aUO-no-hUH"/>
+                    <constraint firstItem="30e-z9-piT" firstAttribute="height" secondItem="H2p-sc-9uM" secondAttribute="height" multiplier="80:80" constant="-32" id="aa0-dG-94E"/>
+                    <constraint firstItem="FHK-gY-Gn1" firstAttribute="width" secondItem="H2p-sc-9uM" secondAttribute="width" id="i64-j2-LSQ"/>
+                    <constraint firstItem="30e-z9-piT" firstAttribute="width" secondItem="H2p-sc-9uM" secondAttribute="width" multiplier="0.2875" constant="-63.375" id="iUj-5m-CRB"/>
+                    <constraint firstItem="30e-z9-piT" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="7" id="jTc-1e-SrH"/>
+                    <constraint firstItem="kd1-q6-ats" firstAttribute="centerY" secondItem="30e-z9-piT" secondAttribute="centerY" id="nwA-zN-htf"/>
+                    <constraint firstAttribute="trailingMargin" secondItem="kd1-q6-ats" secondAttribute="trailing" constant="38" id="szU-ce-Iu8"/>
+                    <constraint firstItem="FHK-gY-Gn1" firstAttribute="centerX" secondItem="H2p-sc-9uM" secondAttribute="centerX" id="wXI-pS-t3Z"/>
+                    <constraint firstItem="kd1-q6-ats" firstAttribute="leading" secondItem="30e-z9-piT" secondAttribute="trailing" constant="7" id="z5d-TI-mgE"/>
+                </constraints>
+            </tableViewCellContentView>
+            <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>
+            <connections>
+                <outlet property="userDataLabel" destination="kd1-q6-ats" id="P3g-95-Tms"/>
+                <outlet property="userImageView" destination="30e-z9-piT" id="X90-aN-5c5"/>
+            </connections>
+            <point key="canvasLocation" x="137.68115942028987" y="88.392857142857139"/>
+        </tableViewCell>
+    </objects>
+    <resources>
+        <image name="envelope.circle" catalog="system" width="64" height="60"/>
+    </resources>
+</document>

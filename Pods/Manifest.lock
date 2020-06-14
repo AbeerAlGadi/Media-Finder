@@ -1,0 +1,36 @@
+PODS:
+  - Alamofire (5.0.0)
+  - IQKeyboardManagerSwift (6.5.5)
+  - NVActivityIndicatorView (4.8.0):
+    - NVActivityIndicatorView/Presenter (= 4.8.0)
+  - NVActivityIndicatorView/Presenter (4.8.0)
+  - SkyFloatingLabelTextField (3.8.0)
+  - SQLite.swift (0.12.2):
+    - SQLite.swift/standard (= 0.12.2)
+  - SQLite.swift/standard (0.12.2)
+
+DEPENDENCIES:
+  - Alamofire
+  - IQKeyboardManagerSwift
+  - NVActivityIndicatorView
+  - SkyFloatingLabelTextField
+  - SQLite.swift (~> 0.12.0)
+
+SPEC REPOS:
+  trunk:
+    - Alamofire
+    - IQKeyboardManagerSwift
+    - NVActivityIndicatorView
+    - SkyFloatingLabelTextField
+    - SQLite.swift
+
+SPEC CHECKSUMS:
+  Alamofire: 58ff2bfb8daaacaa233d5c36e37b10a5248f59b1
+  IQKeyboardManagerSwift: 0fb93310284665245591f50f7a5e38de615960b7
+  NVActivityIndicatorView: d24b7ebcf80af5dcd994adb650e2b6c93379270f
+  SkyFloatingLabelTextField: 5a338412114808e961fe2d14ea2c5452c8b6e4aa
+  SQLite.swift: d2b4642190917051ce6bd1d49aab565fe794eea3
+
+PODFILE CHECKSUM: 05f1f955296a7dec5e661f96fb15a9cbf839d204
+
+COCOAPODS: 1.9.1
