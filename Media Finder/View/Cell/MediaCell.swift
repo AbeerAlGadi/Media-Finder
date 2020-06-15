@@ -76,7 +76,10 @@ class MediaCell: UITableViewCell {
             self.imagOfUrlView.image = imageUrl
         }
     }
-    
+    override func prepareForReuse() {
+        self.artistNameOrTrackNameLabel.text = ""
+        self.longDecreptionTextView.text = "" 
+    }
     
     func configureCell(segmaChoice: Media, typeOfMedia : String, indexPathOfRow: Int ){
         media = segmaChoice

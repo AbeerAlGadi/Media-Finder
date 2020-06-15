@@ -31,6 +31,7 @@ class SignUpVC: UIViewController {
     var firstAddress: DetailsAddressFromMap?
     var secondAddress: DetailsAddressFromMap?
     var thirdAddress: DetailsAddressFromMap?
+   // lazy var
     var arrOfAddresses: [DetailsAddressFromMap] = []
     var noOfAddress: Int!
     var imagePicker: ImagePicker!
@@ -64,12 +65,18 @@ class SignUpVC: UIViewController {
     //MARK: -LifeCycle Methods
     override func viewDidLoad() {
         super.viewDidLoad()
+        // setupViews() for views of screen
         self.navigationItem.title = "CREATR ACCOUNT"
         self.navigationItem.titleView?.tintColor = femalLabel.textColor
-        self.imagePicker = ImagePicker(presentationController: self, delegate: self) // to view from what i chioce my image
         userImage = UIImage(named: "userImage")
+
+        
+        
+        self.imagePicker = ImagePicker(presentationController: self, delegate: self) // to view from what i chioce my image // delegate
         imageView.image = userImage
         //***************************** FOR LINK PAHT OF DATABASE OF USER ************************************
+        // single ton
+        
         openDBTocreateUserTable()
         createUserTable()
         openDBTocreateAddressTable()
@@ -88,7 +95,7 @@ class SignUpVC: UIViewController {
     }
     
     @IBAction func imageBtnPressed(_ sender: UIButton) {
-        self.imagePicker.present(from: sender)
+        self.imagePicker.present(from: sender) // var ...cte
     }
     
     @IBAction func isMaleOrFemal(_ sender: UISwitch) {
@@ -109,6 +116,7 @@ class SignUpVC: UIViewController {
     
     @IBAction func address3LoctionPressed(_ sender: UIButton) {
         goToMapScreen()
+        //sender.tag = 3 //replace
         noOfAddress = 3
     }
     
@@ -224,7 +232,7 @@ class SignUpVC: UIViewController {
     
     func saveAddressesInSQLite(_ fullAddress: String, _ email: String, _ latitude: Double, _ longitude: Double){
         let insertaddress = self.userAddressTable.insert(self.userEmail <- email, self.fullAddress <- fullAddress, self.latitude <- latitude, self.longitude <- longitude)
-        print("insertaddress \(insertaddress)")
+          print("insertaddress \(insertaddress)")
         do{
             try self.database1.run(insertaddress)
             print("Inserted Address")
@@ -304,7 +312,7 @@ extension SignUpVC: ImagePickerDelegate , UIImagePickerControllerDelegate{
 
 //confirm the delegate protocal
 extension SignUpVC: LocationOfUserAddressDelegate {
-    func setDelailLocationInAddress1(delailsAddress1: String, latitude: Double, longitude: Double) {
+    func setDelailLocationInAddress1(delailsAddress1: String, latitude: Double, longitude: Double ) {
         switch noOfAddress{
         case 1:
             firstAddress =  DetailsAddressFromMap(fullAddress: delailsAddress1 , latitude: latitude , longitude: longitude, userEmail: self.email )
