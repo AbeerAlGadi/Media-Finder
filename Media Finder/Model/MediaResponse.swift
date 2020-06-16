@@ -23,7 +23,6 @@ struct Media: Decodable {
     var artistViewUrl: String? // View the artist's works in music & tvShow
     var trackViewUrl: String? // View the track of movie or music & tvShow
     
-    
     enum CodingKeys: String,CodingKey {
         case trackName
         case imageUrl = "artworkUrl100"
@@ -41,3 +40,13 @@ enum MediaType: String {
     case myFavarote = "My Favarote"
 
 }
+
+//struct MyResult {
+//    var media: [Media]
+//    var userEmail: String
+//    
+//    enum CodingKeys: String,CodingKey {
+//        case userEmail
+//    }
+//
+//}

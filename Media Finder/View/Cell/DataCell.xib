@@ -35,25 +35,46 @@
                         <color key="textColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <nil key="highlightedColor"/>
                     </label>
+                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="fq3-im-1HW" customClass="PMSuperButton" customModule="Media_Finder" customModuleProvider="target">
+                        <rect key="frame" x="36" y="12.5" width="378" height="55"/>
+                        <color key="backgroundColor" red="0.93725490199999995" green="0.3411764706" blue="0.074509803920000006" alpha="1" colorSpace="calibratedRGB"/>
+                        <fontDescription key="fontDescription" name="HelveticaNeue-Bold" family="Helvetica Neue" pointSize="20"/>
+                        <state key="normal" title="LOG OUT">
+                            <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                        </state>
+                        <userDefinedRuntimeAttributes>
+                            <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                <real key="value" value="10"/>
+                            </userDefinedRuntimeAttribute>
+                        </userDefinedRuntimeAttributes>
+                        <connections>
+                            <action selector="logOutBtnPressed:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="142-81-gyR"/>
+                        </connections>
+                    </button>
                 </subviews>
                 <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                 <constraints>
+                    <constraint firstItem="fq3-im-1HW" firstAttribute="width" secondItem="H2p-sc-9uM" secondAttribute="width" multiplier="0.84" id="7LF-tI-JHj"/>
                     <constraint firstAttribute="bottom" secondItem="kd1-q6-ats" secondAttribute="bottom" constant="21" id="AMQ-kJ-mAV"/>
+                    <constraint firstItem="fq3-im-1HW" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="D5T-Ri-vgn"/>
                     <constraint firstItem="kd1-q6-ats" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="19" id="LLV-0j-6Oq"/>
                     <constraint firstItem="FHK-gY-Gn1" firstAttribute="top" secondItem="kd1-q6-ats" secondAttribute="bottom" constant="16" id="VQc-af-jhb"/>
                     <constraint firstAttribute="bottom" secondItem="FHK-gY-Gn1" secondAttribute="bottom" id="aUO-no-hUH"/>
                     <constraint firstItem="30e-z9-piT" firstAttribute="height" secondItem="H2p-sc-9uM" secondAttribute="height" multiplier="80:80" constant="-32" id="aa0-dG-94E"/>
+                    <constraint firstItem="fq3-im-1HW" firstAttribute="height" secondItem="H2p-sc-9uM" secondAttribute="height" multiplier="0.6875" id="h3M-Zb-wuR"/>
                     <constraint firstItem="FHK-gY-Gn1" firstAttribute="width" secondItem="H2p-sc-9uM" secondAttribute="width" id="i64-j2-LSQ"/>
                     <constraint firstItem="30e-z9-piT" firstAttribute="width" secondItem="H2p-sc-9uM" secondAttribute="width" multiplier="0.2875" constant="-63.375" id="iUj-5m-CRB"/>
                     <constraint firstItem="30e-z9-piT" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="7" id="jTc-1e-SrH"/>
                     <constraint firstItem="kd1-q6-ats" firstAttribute="centerY" secondItem="30e-z9-piT" secondAttribute="centerY" id="nwA-zN-htf"/>
                     <constraint firstAttribute="trailingMargin" secondItem="kd1-q6-ats" secondAttribute="trailing" constant="38" id="szU-ce-Iu8"/>
                     <constraint firstItem="FHK-gY-Gn1" firstAttribute="centerX" secondItem="H2p-sc-9uM" secondAttribute="centerX" id="wXI-pS-t3Z"/>
+                    <constraint firstItem="fq3-im-1HW" firstAttribute="centerX" secondItem="H2p-sc-9uM" secondAttribute="centerX" id="web-sz-Aie"/>
                     <constraint firstItem="kd1-q6-ats" firstAttribute="leading" secondItem="30e-z9-piT" secondAttribute="trailing" constant="7" id="z5d-TI-mgE"/>
                 </constraints>
             </tableViewCellContentView>
             <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>
             <connections>
+                <outlet property="logOutPtnAppear" destination="fq3-im-1HW" id="YgS-te-eYT"/>
                 <outlet property="userDataLabel" destination="kd1-q6-ats" id="P3g-95-Tms"/>
                 <outlet property="userImageView" destination="30e-z9-piT" id="X90-aN-5c5"/>
             </connections>

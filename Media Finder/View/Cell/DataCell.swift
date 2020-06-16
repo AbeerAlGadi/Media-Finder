@@ -17,6 +17,7 @@ class DataCell: UITableViewCell {
         super.awakeFromNib()
         // Initialization code
     }
+    @IBOutlet weak var logOutPtnAppear: PMSuperButton!
     
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
@@ -37,27 +38,57 @@ class DataCell: UITableViewCell {
                 self.userImageView.image = userData.userImage.getImage()
                 getRediusImage()
                 self.userDataLabel.isHidden = true
+                logOutPtnAppear.isHidden = true
             }else{
                 let userImage = userData.userImage.getImage()
                 getRediusImage()
                 self.userDataLabel.text = userData.userFullName
                 self.userImageView.image = userImage
+                logOutPtnAppear.isHidden = true
+
             }
         case 1:
           //  let image = UIImage(named: "4")
+            logOutPtnAppear.isHidden = true
             getRediusImage()
           ///  self.userImageView.image = image
             self.userDataLabel.text = userData.userEmail
             
         case 2:
+            logOutPtnAppear.isHidden = true
             self.userDataLabel.text = "\(userData.genderOfUser)"
             self.userImageView.image = UIImage(named: "mediaFinder")
             self.userImageView.image?.withTintColor(.white)
         case 3:
+            logOutPtnAppear.isHidden = true
             self.userDataLabel.text = "\(userData.userContactNumber)"
             self.userImageView.image = UIImage(named:"3")
             self.userImageView.image?.withTintColor(.white)
+        case 4:
+            logOutPtnAppear.isHidden = true
+            self.userImageView.isHidden = true
+            logOutPtnAppear.isHidden = false
+
         default: break
         }
     }
+//    func checkLogout(){
+//        let alertLogOut = UIAlertController(title:"Confirm", message: "Are you sure you want to log out ? ", preferredStyle: .alert)
+//        let alertAction = UIAlertAction(title: "Yes", style:.default)
+//        { (UIAlertAction) in
+//            UserDefaults.standard.set(true, forKey:"UserisLogOut")
+//            UserDefaults.standard.synchronize()
+//            self.goToSignInScreen()
+//        }
+//        let noAlertAction = UIAlertAction(title: "No", style: .default,handler: nil)
+//        alertLogOut.addAction(alertAction)
+//        alertLogOut.addAction(noAlertAction)
+//        UserDefaults.standard.set(false, forKey: "UserisLogOut")
+//        self.present(alertLogOut, animated: true, completion: nil)
+//    }
+    @IBAction func logOutBtnPressed(_ sender: PMSuperButton) {
+        //checkLogout()
+    }
+    
+
 }

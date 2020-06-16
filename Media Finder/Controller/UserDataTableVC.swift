@@ -19,7 +19,7 @@ class UserDataTableVC: UITableViewController {
     var database1 : Connection!
     
     //MARK:- Constants
-    
+    lazy var section1 = 0
     let cellIdentifier = "DataCell"
     let cellIdentifier1 = "AddressCell"
     let userTable = Table("users")
@@ -142,7 +142,7 @@ class UserDataTableVC: UITableViewController {
     
     override func numberOfSections(in tableView: UITableView) -> Int {
         // #warning Incomplete implementation, return the number of sections
-        return 2
+        return 3
     }
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -150,18 +150,37 @@ class UserDataTableVC: UITableViewController {
         if section == 0 {
             return 4
         }
-        else {
+        else if section == 1 {
             print("detailsAddressFromMap: \(self.detailsAddressFromMap.count)")
             return detailsAddressFromMap.count
+        }else{
+            section1 = 1
+            return 1
         }
     }
-    
+    func checkLogout(){
+        let alertLogOut = UIAlertController(title:"Confirm", message: "Are you sure you want to log out ? ", preferredStyle: .alert)
+        let alertAction = UIAlertAction(title: "Yes", style:.default)
+        { (UIAlertAction) in
+            UserDefaults.standard.set(true, forKey:"UserisLogOut")
+            UserDefaults.standard.synchronize()
+            self.goToSignInScreen()
+        }
+        let noAlertAction = UIAlertAction(title: "No", style: .default,handler: nil)
+        alertLogOut.addAction(alertAction)
+        alertLogOut.addAction(noAlertAction)
+        UserDefaults.standard.set(false, forKey: "UserisLogOut")
+        self.present(alertLogOut, animated: true, completion: nil)
+    }
+
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        //section 3 cell 0
+        if indexPath.section == 2 {
+            checkLogout()
+        }
     }
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         _ = numberOfSections(in: dataTableViewShow)
-        let returnCell = UITableViewCell()
+      //  let returnCell = UITableViewCell()
         if indexPath.section == 0
         {   
             guard let returnCell = dataTableViewShow.dequeueReusableCell(withIdentifier: cellIdentifier, for: indexPath)
@@ -178,12 +197,18 @@ class UserDataTableVC: UITableViewController {
             print(countOfAddress)
             returnCell.configureCell(fullAddress: self.detailsAddressFromMap[indexPath.row],indexPathForAddress: countOfAddress)
             return returnCell
+        }else {
+            guard let returnCell = dataTableViewShow.dequeueReusableCell( withIdentifier: cellIdentifier, for: indexPath)
+                as? DataCell else {return UITableViewCell()}
+            let index: Int = 4
+            returnCell.configureCell(userData: self.userReg, index : index )
+            return returnCell
         }
-        return returnCell
+       // return returnCell
     }
     
     override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        if  indexPath.section == 0 {
+        if  indexPath.section == 0 || indexPath.section == 2 {
             return 80
         } else {
             return 185

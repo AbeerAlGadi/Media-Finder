@@ -39,6 +39,7 @@ class MediaListVC1: UIViewController  {
     let artistName = Expression<String>("artistName")
     let artistViewUrl = Expression<String>("artistViewUrl")
     let trackViewUrl = Expression<String>("trackViewUrl")
+    let userEmail = Expression<String>("userEmail")
     let cellIdentifier = "MediaCell"
     
     
@@ -54,7 +55,6 @@ class MediaListVC1: UIViewController  {
         view.addSubview(loading)
         view.backgroundColor = .white
         navigationController?.navigationBar.isHidden = false
-        
         navigationItem.title = "MEDIA LIST"
         mediaSearchBar.delegate = self
         mediaTableView.dataSource = self
@@ -114,6 +114,8 @@ class MediaListVC1: UIViewController  {
     func loadDataFromSqlite() -> [Media] {
        // loading.startAnimating()
         arrOfMedia.removeAll()
+        let defaults = UserDefaults.standard
+        let userEmail1 = defaults.string(forKey: "SavedCurrentEmail")
         do{
             let documentDirectory = try FileManager.default.url(for: .documentDirectory, in: .userDomainMask, appropriateFor: nil, create: true)
             let fileUrl = documentDirectory.appendingPathComponent("mediaTable").appendingPathExtension("sqlite3")
@@ -124,8 +126,11 @@ class MediaListVC1: UIViewController  {
                 let favorateMedia = try self.database.prepare(self.mediaTable)
                 print("arrOfMedia.count in sqlite\(arrOfMedia.count)")
                 for media in favorateMedia {
+                //  guard let email = media[userEmail] else {return}
+                  if userEmail1 ==  media[userEmail] {
                     arrOfMedia.append(Media(trackName: media[trackName], imageUrl: media[imageUrl], longDescription: media[longDescription], artistName: media[artistName], artistViewUrl: media[artistViewUrl], trackViewUrl: media[trackViewUrl]))
                     print("loaded Data from Sqlite3\(media[trackName])" )
+                  }
                 }
                 print("loaded Data from Sqlite3")
                 loading.stopAnimating()
@@ -150,8 +155,10 @@ class MediaListVC1: UIViewController  {
     // ++++++++++++++++++++++++++++++++++++++++++++++++++++++++
     // For Save Data to SQLite
     func saveDataInSQLite(_ typeOfMedia : String, _ arrOfMedia: [Media]){
-        for media in arrOfMedia{
-            let insertFavorateMedia = self.mediaTable.insert(self.artistName <- media.artistName, self.artistViewUrl <- media.artistViewUrl  ?? "" , self.imageUrl <- media.imageUrl, self.longDescription <- media.longDescription ?? "" , self.trackName <- media.artistName, self.trackViewUrl <- media.trackViewUrl ?? "" ,self.mediaType <- typeOfMedia)
+        for media in arrOfMedia {
+            let defaults = UserDefaults.standard
+            let userEmail1 = defaults.string(forKey: "SavedCurrentEmail")
+            let insertFavorateMedia = self.mediaTable.insert(self.artistName <- media.artistName, self.artistViewUrl <- media.artistViewUrl  ?? "" , self.imageUrl <- media.imageUrl, self.longDescription <- media.longDescription ?? "" , self.trackName <- media.artistName, self.trackViewUrl <- media.trackViewUrl ?? "" ,self.mediaType <- typeOfMedia, self.userEmail <- userEmail1! )
             do{
                 try self.database.run(insertFavorateMedia)
                 print("Inserted media")
@@ -184,6 +191,7 @@ class MediaListVC1: UIViewController  {
             table.column(self.mediaType)
             table.column(self.trackName)
             table.column(self.trackViewUrl)
+            table.column(self.userEmail, unique: true )
         }
         do {
             try self.database.run(createFavorateMediaTable)
@@ -195,8 +203,8 @@ class MediaListVC1: UIViewController  {
     // MARK:- GO TO Methods:
     func goToSignInScreen(){
         let sb = UIStoryboard.init(name: "Main", bundle: nil)
-        let sbUserDataTable = sb.instantiateViewController(withIdentifier: "SignInVC") as! SignInVC
-        self.navigationController?.viewControllers = [sbUserDataTable]
+        let sbSignIn = sb.instantiateViewController(withIdentifier: "SignInVC") as! SignInVC
+        self.navigationController?.viewControllers = [sbSignIn]
         self.navigationController?.popToRootViewController(animated: true)
     }
     
@@ -218,7 +226,6 @@ class MediaListVC1: UIViewController  {
                 print(error.localizedDescription)
             } else if let media = media {
                 for media in media{
-                    
                     let mediaSup =  Media(trackName: media.trackName, imageUrl: media.imageUrl, longDescription: media.longDescription, artistName: media.artistName, artistViewUrl: media.artistViewUrl, trackViewUrl: media.trackViewUrl)
                     print("media catch \(media)")
                     self.arrOfMedia.append(mediaSup)
@@ -328,6 +335,7 @@ extension MediaListVC1 :UITableViewDelegate,UITableViewDataSource{
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        //mediaTableView.rowHeight = UILabel.auto
         return 180
         
         

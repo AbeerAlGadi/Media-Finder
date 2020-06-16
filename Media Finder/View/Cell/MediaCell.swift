@@ -53,14 +53,27 @@ class MediaCell: UITableViewCell {
     }
     
     @IBAction func flipImagBtnPressed(_ sender: UIButton) {
-        print("image pressed")
-        if isClicked {
-            isClicked = false
-            UIView.transition(with: self.imagOfUrlView, duration: 0.5, options: .transitionFlipFromLeft, animations: nil, completion: nil)
-        }else {
-            isClicked = true
-            UIView.transition(with: self.imagOfUrlView, duration: 0.5, options: .transitionFlipFromRight, animations: nil, completion: nil)
-        }
+        let origin:CGPoint = self.imagOfUrlView.center
+        let target:CGPoint = CGPoint (x: self.imagOfUrlView.center.x+5, y: self.imagOfUrlView.center.y+5)
+
+
+       // let target:CGPoint = CGPointMake(self.imagOfUrlView.center.x, self.imagOfUrlView.center.y+100)
+        let bounce = CABasicAnimation(keyPath: "position.x")
+        bounce.duration = 0.3
+        bounce.fromValue = origin.y
+        bounce.toValue = target.y
+        bounce.repeatCount = 2
+        bounce.autoreverses = true
+        self.imagOfUrlView.layer.add(bounce, forKey: "position")
+
+//        print("image pressed")
+//        if isClicked {
+//            isClicked = false
+//            UIView.transition(with: self.imagOfUrlView, duration: 0.5, options: .transitionFlipFromLeft, animations: nil, completion: nil)
+//        }else {
+//            isClicked = true
+//            UIView.transition(with: self.imagOfUrlView, duration: 0.5, options: .transitionFlipFromRight, animations: nil, completion: nil)
+//        }
     }
     
     override func setSelected(_ selected: Bool, animated: Bool) {
@@ -82,6 +95,7 @@ class MediaCell: UITableViewCell {
     }
     
     func configureCell(segmaChoice: Media, typeOfMedia : String, indexPathOfRow: Int ){
+        prepareForReuse()
         media = segmaChoice
         mediaType = typeOfMedia
         switch typeOfMedia{
@@ -114,4 +128,6 @@ class MediaCell: UITableViewCell {
             return
         }
     }
+    
+
 }

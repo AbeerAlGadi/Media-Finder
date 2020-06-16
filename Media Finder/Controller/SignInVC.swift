@@ -57,12 +57,18 @@ class SignInVC: UIViewController {
         return true
     }
     
-    func savecurrentEmailInUserDefault(_ email: String){
+    func saveCurrentEmailInUserDefault(_ email: String){
         let userEmailToSave = email
             let defaults = UserDefaults.standard
             defaults.set(userEmailToSave, forKey: "SavedCurrentEmail")
-            print("email saved")
+            print("email Current Email saved")
         }
+//    func saveEmailForSearchResult(_ email: String) {
+//    let userEmailToResult = email
+//        let defaults = UserDefaults.standard
+//        defaults.set(userEmailToResult, forKey: "userEmailToResult")
+//        print("email saved for result")
+//    }
     
     func isValidLogin(email: String,password: String)-> Bool {
         let defaults = UserDefaults.standard
@@ -81,7 +87,7 @@ class SignInVC: UIViewController {
                         for user in users {
                             print("inSqlite:\(String(describing: userEmail))")
                             if (emailCheck == email){
-                                savecurrentEmailInUserDefault(email)
+                                saveCurrentEmailInUserDefault(email)
                                 print("email true")
                                 if password == user[userPass] {
                                     print("password true")
