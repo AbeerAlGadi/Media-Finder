@@ -607,10 +607,10 @@
                             <segmentedControl opaque="NO" tag="3" contentMode="scaleToFill" semanticContentAttribute="spatial" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="mFy-C1-Nrb">
                                 <rect key="frame" x="1" y="55" width="414" height="32"/>
                                 <segments>
-                                    <segment title="Music"/>
+                                    <segment title="Last Search Result"/>
                                     <segment title="Movie"/>
                                     <segment title="TvShow"/>
-                                    <segment title="My Favarote"/>
+                                    <segment title="Music"/>
                                 </segments>
                                 <color key="selectedSegmentTintColor" red="0.93725490199999995" green="0.3411764706" blue="0.074509803920000006" alpha="1" colorSpace="calibratedRGB"/>
                                 <connections>
@@ -636,16 +636,10 @@
                         <viewLayoutGuide key="safeArea" id="xIJ-Cw-JMb"/>
                     </view>
                     <navigationItem key="navigationItem" title="MEDIA LIST" leftItemsSupplementBackButton="YES" id="sUt-D1-pjA">
-                        <barButtonItem key="leftBarButtonItem" title="Back" image="backicon" id="bWS-rL-TDC">
+                        <barButtonItem key="leftBarButtonItem" title="Setting" image="backicon" id="bWS-rL-TDC">
                             <color key="tintColor" red="0.93725490199999995" green="0.3411764706" blue="0.074509803920000006" alpha="1" colorSpace="calibratedRGB"/>
                             <connections>
                                 <action selector="backBtnBar:" destination="ON1-Sh-PmD" id="fV0-6q-8TJ"/>
-                            </connections>
-                        </barButtonItem>
-                        <barButtonItem key="rightBarButtonItem" title="LOG OF" image="power" catalog="system" id="qIs-uS-p9b">
-                            <color key="tintColor" red="0.93725490199999995" green="0.3411764706" blue="0.074509803920000006" alpha="1" colorSpace="calibratedRGB"/>
-                            <connections>
-                                <action selector="logOutBtnBar:" destination="ON1-Sh-PmD" id="aIT-fw-CGY"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
@@ -839,7 +833,6 @@
         <image name="person.circle.fill" catalog="system" width="64" height="60"/>
         <image name="person.fill" catalog="system" width="64" height="60"/>
         <image name="phone.fill" catalog="system" width="64" height="56"/>
-        <image name="power" catalog="system" width="64" height="62"/>
         <image name="staroflife.fill" catalog="system" width="62" height="64"/>
         <image name="userImage" width="512" height="512"/>
     </resources>

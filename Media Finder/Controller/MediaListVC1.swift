@@ -26,7 +26,7 @@ class MediaListVC1: UIViewController  {
     var filtrerSearch : Media!
     var currentarrOfMedia = [Media]()
     var selectedSegmentIndex: Int = 0
-    var typeOfMedia = MediaType.music
+    var typeOfMedia = MediaType.myFavarote
     var  loading : NVActivityIndicatorView = NVActivityIndicatorView(frame: CGRect.init(x: 0, y: 0, width: 70, height: 70), type: .ballRotateChase, color: UIColor.darkGray, padding: 2)
     
     
@@ -74,37 +74,52 @@ class MediaListVC1: UIViewController  {
     
     //Function For open the last open list and open it
     func openLastOpenList() {
-        let isOpenMusic = UserDefaults.standard.bool(forKey: MediaType.music.rawValue)
-        let isOpenMovie = UserDefaults.standard.bool(forKey: MediaType.movie.rawValue)
-        let isOpentvShow = UserDefaults.standard.bool(forKey: MediaType.tvShow.rawValue)
-        let isOpenFavorate = UserDefaults.standard.bool(forKey: MediaType.myFavarote.rawValue)
-        
-        switch true {
-        case isOpenMusic : typeOfMedia = MediaType(rawValue: MediaType.music.rawValue)!
-        mediaSegment.selectedSegmentIndex = 0
-            
-        case isOpenMovie :  typeOfMedia = MediaType(rawValue: MediaType.movie.rawValue)!
-        mediaSegment.selectedSegmentIndex = 1
-            
-        case isOpentvShow :  typeOfMedia = MediaType(rawValue: MediaType.tvShow.rawValue)!
-        mediaSegment.selectedSegmentIndex = 2
-            
-        case isOpenFavorate :  typeOfMedia = MediaType(rawValue: MediaType.myFavarote.rawValue)!
-        mediaSegment.selectedSegmentIndex = 3
-            
-        default:
-             typeOfMedia = MediaType(rawValue: MediaType.music.rawValue)!
+//        let isOpenFavorate = UserDefaults.standard.bool(forKey: MediaType.myFavarote.rawValue)
+//        if isOpenFavorate {
+        arrOfMedia = getMedia(term:"all", media:MediaType.myFavarote.rawValue)
+        mediaTableView.reloadData()
+        typeOfMedia = MediaType.myFavarote
+        arrOfMedia = loadDataFromSqlite()
+        mediaSearchBar.isHidden = true
+        mediaTableView.reloadData()
         }
+//       else {
+//             arrOfMedia = getMedia(term:"all", media:typeOfMedia.rawValue)
+//             mediaTableView.reloadData()
+//
+//        }
+
+//        let isOpenMusic = UserDefaults.standard.bool(forKey: MediaType.music.rawValue)
+//        let isOpenMovie = UserDefaults.standard.bool(forKey: MediaType.movie.rawValue)
+//        let isOpentvShow = UserDefaults.standard.bool(forKey: MediaType.tvShow.rawValue)
+//        let isOpenFavorate = UserDefaults.standard.bool(forKey: MediaType.myFavarote.rawValue)
         
-        if typeOfMedia != MediaType.myFavarote {
-            arrOfMedia = getMedia(term:"all", media:typeOfMedia.rawValue)
-            mediaTableView.reloadData()
-        } else {
-            arrOfMedia = loadDataFromSqlite()
-            mediaSearchBar.isHidden = true
-            mediaTableView.reloadData()
-        }
-    }
+//        switch true {
+//        case isOpenMusic : typeOfMedia = MediaType(rawValue: MediaType.music.rawValue)!
+//        mediaSegment.selectedSegmentIndex = 0
+//
+//        case isOpenMovie :  typeOfMedia = MediaType(rawValue: MediaType.movie.rawValue)!
+//        mediaSegment.selectedSegmentIndex = 1
+//
+//        case isOpentvShow :  typeOfMedia = MediaType(rawValue: MediaType.tvShow.rawValue)!
+//        mediaSegment.selectedSegmentIndex = 2
+//
+//        case isOpenFavorate :  typeOfMedia = MediaType(rawValue: MediaType.myFavarote.rawValue)!
+//        mediaSegment.selectedSegmentIndex = 3
+//
+//        default:
+//             typeOfMedia = MediaType(rawValue: MediaType.music.rawValue)!
+//        }
+        
+//        if typeOfMedia != MediaType.myFavarote {
+//            arrOfMedia = getMedia(term:"all", media:typeOfMedia.rawValue)
+//            mediaTableView.reloadData()
+//        } else {
+//            arrOfMedia = loadDataFromSqlite()
+//            mediaSearchBar.isHidden = true
+//            mediaTableView.reloadData()
+//        }
+  //  }
     
     
     //MARK: - Methods For SQLITE
@@ -128,7 +143,8 @@ class MediaListVC1: UIViewController  {
                 for media in favorateMedia {
                 //  guard let email = media[userEmail] else {return}
                   if userEmail1 ==  media[userEmail] {
-                    arrOfMedia.append(Media(trackName: media[trackName], imageUrl: media[imageUrl], longDescription: media[longDescription], artistName: media[artistName], artistViewUrl: media[artistViewUrl], trackViewUrl: media[trackViewUrl]))
+                    print("it is true email")
+                    arrOfMedia.append(Media(trackName: media[trackName], imageUrl: media[imageUrl], longDescription: media[longDescription], artistName: media[artistName], artistViewUrl: media[artistViewUrl], previewUrl: media[trackViewUrl]))
                     print("loaded Data from Sqlite3\(media[trackName])" )
                   }
                 }
@@ -158,7 +174,7 @@ class MediaListVC1: UIViewController  {
         for media in arrOfMedia {
             let defaults = UserDefaults.standard
             let userEmail1 = defaults.string(forKey: "SavedCurrentEmail")
-            let insertFavorateMedia = self.mediaTable.insert(self.artistName <- media.artistName, self.artistViewUrl <- media.artistViewUrl  ?? "" , self.imageUrl <- media.imageUrl, self.longDescription <- media.longDescription ?? "" , self.trackName <- media.artistName, self.trackViewUrl <- media.trackViewUrl ?? "" ,self.mediaType <- typeOfMedia, self.userEmail <- userEmail1! )
+            let insertFavorateMedia = self.mediaTable.insert(self.artistName <- media.artistName, self.artistViewUrl <- media.artistViewUrl  ?? "" , self.imageUrl <- media.imageUrl, self.longDescription <- media.longDescription ?? "" , self.trackName <- media.artistName, self.trackViewUrl <- media.previewUrl ?? "" ,self.mediaType <- typeOfMedia, self.userEmail <- userEmail1! )
             do{
                 try self.database.run(insertFavorateMedia)
                 print("Inserted media")
@@ -191,7 +207,7 @@ class MediaListVC1: UIViewController  {
             table.column(self.mediaType)
             table.column(self.trackName)
             table.column(self.trackViewUrl)
-            table.column(self.userEmail, unique: true )
+            table.column(self.userEmail)
         }
         do {
             try self.database.run(createFavorateMediaTable)
@@ -226,7 +242,7 @@ class MediaListVC1: UIViewController  {
                 print(error.localizedDescription)
             } else if let media = media {
                 for media in media{
-                    let mediaSup =  Media(trackName: media.trackName, imageUrl: media.imageUrl, longDescription: media.longDescription, artistName: media.artistName, artistViewUrl: media.artistViewUrl, trackViewUrl: media.trackViewUrl)
+                    let mediaSup =  Media(trackName: media.trackName, imageUrl: media.imageUrl, longDescription: media.longDescription, artistName: media.artistName, artistViewUrl: media.artistViewUrl, previewUrl: media.previewUrl)
                     print("media catch \(media)")
                     self.arrOfMedia.append(mediaSup)
                     self.mediaTableView.reloadData()
@@ -264,57 +280,47 @@ class MediaListVC1: UIViewController  {
     
     @IBAction func mediaSegmentControl(_ sender: UISegmentedControl) {
         
-        mediaSearchBar.placeholder = sender.titleForSegment(at: 0)
+        //mediaSearchBar.placeholder = sender.titleForSegment(at: 0)
         switch sender.selectedSegmentIndex {
         case 0:
-            
-            UserDefaults.standard.set(true, forKey: MediaType.music.rawValue)
-            UserDefaults.standard.set(false, forKey:MediaType.movie.rawValue)
-            UserDefaults.standard.set(false, forKey:MediaType.tvShow.rawValue)
-            UserDefaults.standard.set(false, forKey:MediaType.myFavarote.rawValue)
-            
-            mediaSearchBar.isHidden = false
-            mediaSearchBar.text = ""
-            mediaSearchBar.placeholder = sender.titleForSegment(at: 0)
-            self.typeOfMedia = MediaType(rawValue: MediaType.music.rawValue)!
-            arrOfMedia = getMedia(term:"all", media:typeOfMedia.rawValue)
-            
-        case 1:
-            UserDefaults.standard.set(false, forKey: MediaType.music.rawValue)
-            UserDefaults.standard.set(true, forKey:  MediaType.movie.rawValue)
-            UserDefaults.standard.set(false, forKey: MediaType.tvShow.rawValue)
-            UserDefaults.standard.set(false, forKey: MediaType.myFavarote.rawValue)
-            
-            mediaSearchBar.isHidden = false
-            mediaSearchBar.text = ""
-            mediaSearchBar.placeholder = sender.titleForSegment(at: 1)
-            self.typeOfMedia = MediaType(rawValue: MediaType.movie.rawValue)!
-            arrOfMedia = getMedia(term:"all", media:typeOfMedia.rawValue)
-            
-        case 2:
-            UserDefaults.standard.set(false, forKey: MediaType.music.rawValue)
-            UserDefaults.standard.set(false, forKey: MediaType.movie.rawValue)
-            UserDefaults.standard.set(true, forKey:  MediaType.tvShow.rawValue)
-            UserDefaults.standard.set(false, forKey: MediaType.myFavarote.rawValue)
-            
-            mediaSearchBar.isHidden = false
-            mediaSearchBar.text = ""
-            mediaSearchBar.placeholder = sender.titleForSegment(at: 2)
-            self.typeOfMedia = MediaType(rawValue: MediaType.tvShow.rawValue)!
-            arrOfMedia = getMedia(term:"all", media:typeOfMedia.rawValue)
-        case 3:
-            
-            UserDefaults.standard.set(false, forKey: MediaType.music.rawValue)
-            UserDefaults.standard.set(false, forKey: MediaType.movie.rawValue)
-            UserDefaults.standard.set(false, forKey: MediaType.tvShow.rawValue)
-            UserDefaults.standard.set(true, forKey:  MediaType.myFavarote.rawValue)
-            
+            UserDefaults.standard.set(true, forKey: MediaType.myFavarote.rawValue)
             mediaSearchBar.isHidden = true
             print("in case of my favorate media")
             typeOfMedia = MediaType(rawValue: MediaType.myFavarote.rawValue)!
             arrOfMedia = loadDataFromSqlite()
             mediaTableView.reloadData()
-        default: view.backgroundColor = .white
+                       
+        case 1:
+            UserDefaults.standard.set(true, forKey:  MediaType.movie.rawValue)
+            mediaSearchBar.isHidden = false
+            mediaSearchBar.text = ""
+            mediaSearchBar.placeholder = sender.titleForSegment(at: 1)
+            self.typeOfMedia = MediaType(rawValue: MediaType.movie.rawValue)!
+            arrOfMedia = getMedia(term:"all", media:typeOfMedia.rawValue)
+            mediaTableView.reloadData()
+
+            
+        case 2:
+            UserDefaults.standard.set(true, forKey:  MediaType.tvShow.rawValue)
+            mediaSearchBar.isHidden = false
+            mediaSearchBar.text = ""
+            mediaSearchBar.placeholder = sender.titleForSegment(at: 2)
+            self.typeOfMedia = MediaType(rawValue: MediaType.tvShow.rawValue)!
+            arrOfMedia = getMedia(term:"all", media:typeOfMedia.rawValue)
+            mediaTableView.reloadData()
+
+        case 3:
+            UserDefaults.standard.set(true, forKey:  MediaType.music.rawValue)
+            mediaSearchBar.isHidden = false
+            mediaSearchBar.text = ""
+            mediaSearchBar.placeholder = sender.titleForSegment(at: 3)
+            self.typeOfMedia = MediaType(rawValue: MediaType.music.rawValue)!
+            arrOfMedia = getMedia(term:"all", media:typeOfMedia.rawValue)
+            mediaTableView.reloadData()
+
+        default:
+            view.backgroundColor = .white
+
         }
         
     }

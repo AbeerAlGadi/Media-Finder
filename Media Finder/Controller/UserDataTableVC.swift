@@ -154,7 +154,7 @@ class UserDataTableVC: UITableViewController {
             print("detailsAddressFromMap: \(self.detailsAddressFromMap.count)")
             return detailsAddressFromMap.count
         }else{
-            section1 = 1
+            section1 = 2
             return 1
         }
     }
@@ -174,9 +174,9 @@ class UserDataTableVC: UITableViewController {
     }
 
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        if indexPath.section == 2 {
+        if section1 == 0 && indexPath.row == 4 {
             checkLogout()
-        }
+       }
     }
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         _ = numberOfSections(in: dataTableViewShow)

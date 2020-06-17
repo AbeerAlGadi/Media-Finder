@@ -65,18 +65,14 @@ class SignUpVC: UIViewController {
     //MARK: -LifeCycle Methods
     override func viewDidLoad() {
         super.viewDidLoad()
-        // setupViews() for views of screen
-        self.navigationItem.title = "CREATR ACCOUNT"
-        self.navigationItem.titleView?.tintColor = femalLabel.textColor
+        // setupViews() //for views of screen
+        navigationItem.title = "CREATR ACCOUNT"
         userImage = UIImage(named: "userImage")
-
-        
-        
         self.imagePicker = ImagePicker(presentationController: self, delegate: self) // to view from what i chioce my image // delegate
         imageView.image = userImage
+
         //***************************** FOR LINK PAHT OF DATABASE OF USER ************************************
         // single ton
-        
         openDBTocreateUserTable()
         createUserTable()
         openDBTocreateAddressTable()
@@ -300,6 +296,10 @@ class SignUpVC: UIViewController {
     
     
 }
+//MARK: - Function to configuration the view
+//func setupViews(){
+//
+//}
 //MARK:- Extensions
 
 extension SignUpVC: ImagePickerDelegate , UIImagePickerControllerDelegate{

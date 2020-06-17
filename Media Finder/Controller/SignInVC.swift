@@ -70,12 +70,12 @@ class SignInVC: UIViewController {
 //        print("email saved for result")
 //    }
     
-    func isValidLogin(email: String,password: String)-> Bool {
+    func isValidLogin(email1: String,password: String)-> Bool {
         let defaults = UserDefaults.standard
         let userEmail = defaults.stringArray(forKey: "SavedUserEmail") ?? [""]
         for email in userEmail{
-            if email == email {
-                let emailCheck = email
+            if email1 == email {
+                let emailCheck = email1
                 print("in User defult: \(email)")
                 do{
                     let documentDirectory = try FileManager.default.url(for: .documentDirectory, in: .userDomainMask, appropriateFor: nil, create: true)
@@ -87,9 +87,10 @@ class SignInVC: UIViewController {
                         for user in users {
                             print("inSqlite:\(String(describing: userEmail))")
                             if (emailCheck == email){
-                                saveCurrentEmailInUserDefault(email)
+                                saveCurrentEmailInUserDefault(email1)
                                 print("email true")
-                                if password == user[userPass] {
+                                if emailCheck == email1 {
+                                    if password == user[userPass] {
                                     print("password true")
                                     return true
                                 } else{
@@ -102,7 +103,7 @@ class SignInVC: UIViewController {
                             }
                         }
                         print("loaded Data from Sqlite3")
-                        
+                    }
                     }catch{
                         print(error)
                     }
@@ -133,7 +134,7 @@ class SignInVC: UIViewController {
         loading.startAnimating()
         guard let email = emailTxtField.text, isValidEmail(email: email) else {return}
         guard let password = passwordTxtField.text, isValidPassword(password: password) else {return}
-        let login = isValidLogin(email: email,password: password)
+        let login = isValidLogin(email1: email,password: password)
         if login {
             loading.stopAnimating()
             goToMediaListScreenVC()

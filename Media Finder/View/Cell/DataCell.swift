@@ -15,6 +15,7 @@ class DataCell: UITableViewCell {
     @IBOutlet var cursorImage: UIImageView!
     override func awakeFromNib() {
         super.awakeFromNib()
+        
         // Initialization code
     }
     @IBOutlet weak var logOutPtnAppear: PMSuperButton!
@@ -72,22 +73,7 @@ class DataCell: UITableViewCell {
         default: break
         }
     }
-//    func checkLogout(){
-//        let alertLogOut = UIAlertController(title:"Confirm", message: "Are you sure you want to log out ? ", preferredStyle: .alert)
-//        let alertAction = UIAlertAction(title: "Yes", style:.default)
-//        { (UIAlertAction) in
-//            UserDefaults.standard.set(true, forKey:"UserisLogOut")
-//            UserDefaults.standard.synchronize()
-//            self.goToSignInScreen()
-//        }
-//        let noAlertAction = UIAlertAction(title: "No", style: .default,handler: nil)
-//        alertLogOut.addAction(alertAction)
-//        alertLogOut.addAction(noAlertAction)
-//        UserDefaults.standard.set(false, forKey: "UserisLogOut")
-//        self.present(alertLogOut, animated: true, completion: nil)
-//    }
     @IBAction func logOutBtnPressed(_ sender: PMSuperButton) {
-        //checkLogout()
     }
     
 
