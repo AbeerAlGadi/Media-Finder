@@ -174,7 +174,8 @@ class UserDataTableVC: UITableViewController {
     }
 
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        if section1 == 0 && indexPath.row == 4 {
+        // make action on the btn not on the all cell.
+        if section1 == 2 && indexPath.row == 0 {
             checkLogout()
        }
     }
