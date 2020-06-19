@@ -10,6 +10,7 @@ import UIKit
 import AVKit
 
 class MediaCell: UITableViewCell {
+    
     @IBOutlet weak var imagOfUrlView: UIImageView!
     @IBOutlet weak var artistNameOrTrackNameLabel: UILabel!
     @IBOutlet weak var longDecreptionTextView: UITextView!
@@ -60,8 +61,9 @@ class MediaCell: UITableViewCell {
         //playerViewController.frame = self.view.bounds
        // self.view.layer.addSublayer(playerViewController)
 //       .present(playerViewController, animated: true)
-        playerViewController.player!.play()
-//        guard let url = URL(string: media?.previewUrl ?? "") else { return }
+        self.window?.rootViewController?.present(playerViewController, animated: true ) {
+            playerViewController.player?.play()
+        }//        guard let url = URL(string: media?.previewUrl ?? "") else { return }
 //        UIApplication.shared.open(url)
         print("track pressed")
     }
